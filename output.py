@@ -9,6 +9,7 @@ LR_path = '/path/to/LR'
 HR_path = '/path/to/HR'
 load_model_path = '/path/to/model'
 output_path = '/output/path'
+device = device('cuda:0')
 
 if not os.path.exists(output_path):
     os.makedirs(output_path)
@@ -16,9 +17,8 @@ if not os.path.exists(output_path):
 cnt = 0
 
 with no_grad():
-    net = load(load_model_path)
+    net = load(load_model_path).to(device)
     net.eval()
-    device = device('cuda:0')
     div2k = DIV2K(LR_path, HR_path, batch=None, patch_size=None, train=False)
     dataloader = DataLoader(div2k, batch_size=1, shuffle=False, num_workers=0)
     to_image = ToPILImage()

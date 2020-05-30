@@ -1,8 +1,7 @@
-|name|PSNR|SSIM|Flops|parms|log|
-|:---|:---|:---|:---|:---|:---|
+|name|PSNR|SSIM|Flops|parms|checkpoint|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 |Bicubic|17.6147|0.4268|-|-|-|
-|ShuffleSR|18.7887|0.4857|126.5M|56.5K|2020-03-07 14:21:09|
-|ShuffleSR_SE|18.8280|0.5078|128.2M|158.9K|2020-03-08 14:34:03|
-|ShuffleSR_SK|18.7890|0.5094|165.0M|152.2K|2020-03-07 20:02:43|
-|WDSR|18.7983|0.5072|381.5M|167.7K|2020-02-26 13:23:55|
-|ShuffleSR_M|18.8009|0.5082|342.4M|152.1K|2020-02-26 13:19:25|
+|ShuffleSR|18.7887|0.4857|126.5M|56.5K|ShuffleSR_Mild_X4.pth|
+|ShuffleSR_SE|18.8280|0.5078|128.2M|158.9K|ShuffleSR_SE_Mild_X4.pth|
+|ShuffleSR_SK|18.7890|0.5094|165.0M|152.2K|ShuffleSR_SK_Mild_X4.pth|
+|WDSR|18.7757|0.4975|381.5M|167.7K|WDSR_Mild_X4.pth|

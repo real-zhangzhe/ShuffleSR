@@ -11,11 +11,11 @@ scale = 4
 LR_path = '/path/to/LR'
 HR_path = '/path/to/HR'
 load_model_path = '/path/to/model'
+device = device('cuda:0')
 
 with no_grad():
-    net = load(load_model_path)
+    net = load(load_model_path).to(device)
     net.eval()
-    device = device('cuda:0')
     div2k = DIV2K(LR_path, HR_path, batch=None, patch_size=None, train=False)
     dataloader = DataLoader(div2k, batch_size=1, shuffle=False, num_workers=0)
     to_image = ToPILImage()
@@ -23,7 +23,7 @@ with no_grad():
     meter = AverageValueMeter()
     mean_meter = AverageValueMeter()
 
-    for input, label, _ in dataloader:
+    for i, (input, label, _) in enumerate(dataloader):
         input = input.to(device)
         output = net(input).cpu()
         output[output > 1] = 1
@@ -32,7 +32,7 @@ with no_grad():
         img1 = asarray(output_image)
         img2 = asarray(to_image(label[0]))
         ssim = structural_similarity(img1, img2, data_range=255, multichannel=True)
-        print('%s = %lf' % ('SSIM', ssim))
+        print('Pic %d, SSIM = %lf' % (i+1, ssim))
         meter.add(ssim)
     mean_meter.add(meter.value()[0])
 

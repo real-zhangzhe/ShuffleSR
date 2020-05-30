@@ -94,24 +94,26 @@ def train():
     wn = lambda x: nn.utils.weight_norm(x)
 
     scale = DIV2K(train_LR_path, train_HR_path, batch, patch_size).get_scale()
-    net = None
-    if 'WDSR' == args.network:
-        from network.wdsr_b import WDSR_B
-        net = WDSR_B(scale=scale, n_resblocks=blocks, n_feats=features).to(device)
-    elif 'ShuffleSR' == args.network:
-        from network.ShuffleSR import ShuffleSR
-        net = ShuffleSR(scale=scale, n_resblocks=blocks, n_feats=features, wn=wn, bias=bias,
-                        expand=expand, groups_factor=groups_factor).to(device)
-    elif 'ShuffleSR_SE' == args.network:
-        from network.ShuffleSR_SE import ShuffleSR_SE
-        net = ShuffleSR_SE(scale=scale, n_resblocks=blocks, n_feats=features, wn=wn, bias=bias,
-                           expand=expand, groups_factor=groups_factor).to(device)
-    elif 'ShuffleSR_SK' == args.network:
-        from network.ShuffleSR_SK import ShuffleSR_SK
-        net = ShuffleSR_SK(scale=scale, n_resblocks=blocks, n_feats=features, wn=wn, bias=bias,
-                           expand=expand, groups_factor=groups_factor).to(device)
+    if load_model_path is not None:
+        net = load(load_model_path).to(device)
     else:
-        raise NameError('input networks not implement!')
+        if 'WDSR' == args.network:
+            from network.wdsr_b import WDSR_B
+            net = WDSR_B(scale=scale, n_resblocks=blocks, n_feats=features).to(device)
+        elif 'ShuffleSR' == args.network:
+            from network.ShuffleSR import ShuffleSR
+            net = ShuffleSR(scale=scale, n_resblocks=blocks, n_feats=features, wn=wn, bias=bias,
+                            expand=expand, groups_factor=groups_factor).to(device)
+        elif 'ShuffleSR_SE' == args.network:
+            from network.ShuffleSR_SE import ShuffleSR_SE
+            net = ShuffleSR_SE(scale=scale, n_resblocks=blocks, n_feats=features, wn=wn, bias=bias,
+                               expand=expand, groups_factor=groups_factor).to(device)
+        elif 'ShuffleSR_SK' == args.network:
+            from network.ShuffleSR_SK import ShuffleSR_SK
+            net = ShuffleSR_SK(scale=scale, n_resblocks=blocks, n_feats=features, wn=wn, bias=bias,
+                               expand=expand, groups_factor=groups_factor).to(device)
+        else:
+            raise NameError('input networks not implement!')
 
     logger.warning('Net = %s', type(net).__name__)
     logger.warning('blocks = %d', blocks)
@@ -129,8 +131,6 @@ def train():
 
     criterion = nn.L1Loss(reduction='mean').to(device)
     optimizer = optim.Adam(net.parameters(), lr=lr, weight_decay=weight_decay)
-    if load_model_path is not None:
-        net = load(load_model_path).to(device)
 
     avg_loss = AverageValueMeter()
 
@@ -184,7 +184,7 @@ def val(net, epoch):
         warnings.simplefilter("ignore")
         if cur_psnr > best_psnr:
             best_psnr = cur_psnr
-            save(net, join(save_path, now_time.strftime('%Y-%m-%d %H:%M:%S.pt')))
+            save(net, join(save_path, now_time.strftime('%Y-%m-%d %H:%M:%S.pth')))
             logger.info('save done!')
     logger.warning('epoch = %d \tPSNR = %f\tbest PSNR = %f',
                    epoch, cur_psnr, best_psnr)
