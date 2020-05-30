@@ -17,7 +17,6 @@
 |ShuffleSR_SE|<strong>18.8280</strong>|0.5078|128.2M|158.9K|
 |ShuffleSR_SK|18.7890|<strong>0.5094</strong>|165.0M|152.2K|
 |WDSR|18.7983|0.5072|381.5M|167.7K|
-|ShuffleSR_M|18.8009|0.5082|342.4M|152.1K|
 
 <br>
 
@@ -30,7 +29,6 @@
 |ShuffleSR_SK|<strong>26.4377</strong>|<strong>0.7542</strong>|165.0M|152.2K|
 |ShuffleSR_SE|25.6780|0.7292|128.2M|158.9K|
 |WDSR|25.2512|0.7152|381.5M|167.7K|
-|ShuffleSR_M|25.4469|0.7267|342.4M|152.1K|
 
 <br>
 
