@@ -59,6 +59,29 @@
 
 <br>
 
+## Network super parameter
+
+|network|features|expand|blocks|
+|:---:|:---:|:---:|:---:|
+|ShuffleSR_SE_Unknown_X4|40|2|8|
+|ShuffleSR_SE_Mild_X4|40|2|8|
+|ShuffleSR_SK_Bicubic_X2|48|2|8|
+|ShuffleSR_SK_Bicubic_X4|40|2|8|
+|ShuffleSR_SK_Unknown_X4|40|2|8|
+|ShuffleSR_SK_Mild_X4|40|2|8|
+|ShuffleSR_Bicubic_X2|48|2|8|
+|ShuffleSR_Bicubic_X4|40|2|8|
+|ShuffleSR_Unknown_X4|28|3|12|
+|ShuffleSR_Mild_X4|40|2|8|
+|ShuffleSR_M_Bicubic_X2|68|3|8|
+|ShuffleSR_M_Bicubic_X4|68|3|8|
+|WDSR_Bicubic_X2|32|6|8|
+|WDSR_Bicubic_X4|32|6|8|
+|WDSR_Unknown_X4|32|6|8|
+|WDSR_Mild_X4|32|6|8|
+
+<br>
+
 ## Usage
 - Git clone
 
